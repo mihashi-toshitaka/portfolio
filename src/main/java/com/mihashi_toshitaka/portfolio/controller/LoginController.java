@@ -20,7 +20,7 @@ public class LoginController {
     @PostMapping("")
     public String login(@RequestParam String username, @RequestParam String password,
             RedirectAttributes redirectAttributes) {
-        return "redirect:/login";
+        return "redirect:/menu";
     }
 
 }
