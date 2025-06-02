@@ -73,4 +73,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ github.ref_name }}
+          tags: ghcr.io/${{ github.repository_owner }}/portfolio:${{ github.ref_name }}
