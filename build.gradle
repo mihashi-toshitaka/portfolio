@@ -38,6 +38,8 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+    testImplementation 'io.github.cdimascio:java-dotenv:5.2.2'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
@@ -47,6 +49,8 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 }
 

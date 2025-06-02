@@ -1,0 +1,47 @@
+name: Build Spring Boot Jar
+
+on:
+  push:
+    tags:
+      - "**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ソースコードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Java のセットアップ（バージョンは必要に応じて変更）
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      # Gradle のキャッシュ
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      # 実行権限を付与（gradlew がある場合）
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      # bootJar ビルド
+      - name: Build with bootJar
+        run: ./gradlew bootJar
+
+      # 出力ファイルを保存（オプション）
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-boot-jar
+          path: build/libs/*.jar
