@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 
 # JAR ファイルをコンテナにコピー（build/libs に生成されている前提）
-COPY build/libs/*.jar app.jar
+COPY app.jar app.jar
 
 # 必要に応じてポートを公開
 EXPOSE 80
