@@ -11,4 +11,4 @@ COPY app.jar app.jar
 EXPOSE 80
 
 # Spring Boot アプリケーションの実行
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Duser.timezone=Asia/Tokyo", "-jar", "app.jar"]
