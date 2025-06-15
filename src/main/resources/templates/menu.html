@@ -1,1 +1,77 @@
-ログインしました
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ポートフォリオ</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom Styles -->
+    <style>
+      /* === Global Background === */
+      body {
+        background: url("/img/back.jpg") center / cover no-repeat fixed;
+      }
+
+      /* === Glass Panel (main wrapper) === */
+      .bg-panel {
+        background: rgba(245, 249, 255, 0.75); /* 淡いブルーの半透明 */
+        border: 1px solid rgba(13, 110, 253, 0.3); /* プライマリ色の細枠 */
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+        padding: 1.25rem;
+      }
+
+      /* === Menu Link Card === */
+      .menu-link {
+        display: block;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.9); /* 白ベース */
+        border: 1px solid rgba(13, 110, 253, 0.45); /* プライマリ色の枠線 */
+        text-decoration: none;
+        color: #212529;
+        font-weight: 500;
+        transition: all 0.25s ease;
+      }
+
+      .menu-link:hover {
+        background: rgba(245, 249, 255, 0.95); /* ほんのりブルー */
+        border-color: #0d6efd; /* より強いプライマリ色 */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+      }
+
+      .menu-grid {
+        display: grid;
+        gap: 0.75rem;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- ── Header ─────────────────────────────────────────────── -->
+    <header class="navbar navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Tech&nbsp;Portfolio</a>
+      </div>
+    </header>
+
+    <!-- ── Main ──────────────────────────────────────────────── -->
+    <main class="container flex-grow-1 d-flex align-items-center justify-content-center" style="padding: 4rem 0 3rem;">
+      <div class="col-12 col-md-8 col-lg-6 bg-panel">
+        <div class="menu-grid">
+          <a href="career.html" class="menu-link">学歴・職歴</a>
+          <a href="experience.html" class="menu-link">職歴詳細</a>
+          <a href="architecture.html" class="menu-link">ポートフォリオサイトのシステム構成</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── Footer (黒帯) ─────────────────────────────────────── -->
+    <footer class="bg-dark py-3 mt-auto"></footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

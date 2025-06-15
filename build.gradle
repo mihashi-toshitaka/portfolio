@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.0'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.github.jk1.dependency-license-report' version '2.9'
 }
 
 group = 'com.mihashi_toshitaka'
@@ -56,4 +57,32 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+import com.github.jk1.license.render.*
+import com.github.jk1.license.importer.*
+import com.github.jk1.license.filter.*
+
+licenseReport {
+    renderers = [
+        new TextReportRenderer('THIRD-PARTY.txt'),
+        new InventoryHtmlReportRenderer ('licenses.html')
+    ]
+    filters = [
+        new LicenseBundleNormalizer()
+    ]
+     outputDir = "$projectDir/src/main/resources/static"
+}
+
+tasks.named('generateLicenseReport') {
+    doLast {
+        def staticDir = file("$projectDir/src/main/resources/static")
+        staticDir.listFiles()?.each { file ->
+            if (!['THIRD-PARTY.txt', 'licenses.html'].contains(file.name)) {
+                if (file.isDirectory() && file.name.endsWith('.jar')) {
+                    file.deleteDir()
+                }
+            }
+        }
+    }
 }
