@@ -17,6 +17,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 // 外部向けAPIは認証不要
                 .requestMatchers("/api/public/**").permitAll()
+                // プライバシーポリシーHTMLは認証不要
+                .requestMatchers("/html/privacy.html").permitAll()
                 // それ以外は認証が必要
                 .anyRequest().authenticated())
                 // 認証時の挙動
