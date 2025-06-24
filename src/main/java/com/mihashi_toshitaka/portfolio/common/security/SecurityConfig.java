@@ -1,6 +1,7 @@
 package com.mihashi_toshitaka.portfolio.common.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,10 +20,13 @@ public class SecurityConfig {
                 .requestMatchers("/api/public/**").permitAll()
                 // プライバシーポリシーHTMLは認証不要
                 .requestMatchers("/html/privacy.html").permitAll()
+                // ヘルスチェックエンドポイントは認証不要
+                .requestMatchers(EndpointRequest.to("health")).permitAll()
                 // それ以外は認証が必要
                 .anyRequest().authenticated())
-                // 認証時の挙動
-                .oauth2Login(oauth2 -> oauth2.successHandler(customSuccessHandler));
+                // 認証時の挙動（デフォルトログイン画面は無効）
+                .oauth2Login(
+                        oauth2 -> oauth2.loginPage("/oauth2/authorization/azure").successHandler(customSuccessHandler));
         return http.build();
     }
 
