@@ -3,6 +3,13 @@ plugins {
 	id 'org.springframework.boot' version '3.5.0'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'com.github.jk1.dependency-license-report' version '2.9'
+	id 'com.diffplug.spotless' version '6.25.0'
+	id 'org.openrewrite.rewrite' version '6.16.3'
+	id 'net.ltgt.errorprone' version '4.1.0'
+	id 'com.github.spotbugs' version '6.0.14'
+	id 'org.owasp.dependencycheck' version '9.2.0'
+	id 'checkstyle'
+	id 'org.ec4j.editorconfig' version '0.1.0'
 }
 
 group = 'com.mihashi_toshitaka'
@@ -25,9 +32,9 @@ repositories {
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "com.azure.spring:spring-cloud-azure-dependencies:5.22.0"
-    }
+	imports {
+		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:5.23.0"
+	}
 }
 
 dependencies {
@@ -40,7 +47,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
-    testImplementation 'io.github.cdimascio:java-dotenv:5.2.2'
+	testImplementation 'io.github.cdimascio:java-dotenv:5.2.2'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
@@ -52,11 +59,72 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis'
 
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	testImplementation 'com.tngtech.archunit:archunit-junit5:1.3.0'
+	errorprone 'com.google.errorprone:error_prone_core:2.28.0'
+	spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'
+	rewrite 'org.openrewrite.recipe:rewrite-java:8.50.0'
 
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+checkstyle {
+	toolVersion = '10.17.0'
+	configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
+	maxWarnings = 0
+}
+
+editorconfig {
+	includes = ['**/*.java', '**/*.gradle', '**/*.md']
+	excludes = ['build/**', '.gradle/**']
+}
+
+spotless {
+	java {
+		googleJavaFormat('1.23.0')
+		target 'src/**/*.java'
+	}
+	format('misc') {
+		target '*.gradle', '*.md', '.gitignore'
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+}
+
+rewrite {
+	activeRecipe('org.openrewrite.java.format.AutoFormat')
+}
+
+tasks.named('spotlessApply') {
+	mustRunAfter 'rewriteRun'
+}
+
+tasks.named('editorconfigFormat') {
+	mustRunAfter 'rewriteRun'
+}
+
+tasks.named('build') {
+	dependsOn 'rewriteRun', 'editorconfigFormat', 'spotlessApply'
+}
+
+tasks.named('check') {
+	dependsOn 'spotlessCheck', 'editorconfigCheck', 'spotbugsMain', 'spotbugsTest', 'dependencyCheckAnalyze'
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+	reports {
+		html.required = true
+		xml.required = false
+	}
+	ignoreFailures = false
+}
+
+dependencyCheck {
+	failBuildOnCVSS = 11
+	failOnError = false
+	formats = ['HTML', 'JSON']
 }
 
 import com.github.jk1.license.render.*
