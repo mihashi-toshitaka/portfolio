@@ -12,14 +12,15 @@ class PortfolioApplicationTests {
   static void loadEnv() {
     Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load(); // .env を自動で探して読み込む
     dotenv
-        .entries()
-        .forEach(
-            entry -> {
-              // Spring が参照できるように JVM の system properties に注入
-              System.setProperty(entry.getKey(), entry.getValue());
-            });
+                .entries()
+                .forEach(
+                            entry -> {
+                              // Spring が参照できるように JVM の system properties に注入
+                              System.setProperty(entry.getKey(), entry.getValue());
+                            });
   }
 
   @Test
-  void contextLoads() {}
+  void contextLoads() {
+  }
 }

@@ -18,8 +18,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
   @Override
   public void onAuthenticationSuccess(
-      HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-      throws IOException, ServletException {
+              HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+              throws IOException, ServletException {
 
     // セッションに保存された元のリクエストURIを取得
     SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
