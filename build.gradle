@@ -83,7 +83,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	testImplementation 'com.tngtech.archunit:archunit-junit5:1.3.0'
 	// 静的解析ツール用依存
-	errorprone 'com.google.errorprone:error_prone_core:2.28.0'
+	errorprone 'com.google.errorprone:error_prone_core:2.45.0'
 	spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'
 	// OpenRewrite レシピ
 	rewrite 'org.openrewrite:rewrite-java:8.50.0'
@@ -98,7 +98,7 @@ tasks.named('test') {
 
 checkstyle {
 	// Checkstyle ルール設定（警告で失敗）
-	toolVersion = '10.17.0'
+	toolVersion = '12.1.2'
 	configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
 	maxWarnings = 0
 }
@@ -146,7 +146,7 @@ tasks.named('build') {
 
 tasks.named('check') {
 	// 品質ゲートをまとめて実行
-	dependsOn 'spotlessCheck', 'editorconfigCheck', 'spotbugsMain', 'spotbugsTest'
+	dependsOn 'spotlessCheck', 'editorconfigCheck', 'checkstyleMain', 'checkstyleTest', 'spotbugsMain', 'spotbugsTest'
 	// dependencyCheckAnalyze は任意（.env/環境変数/Gradle プロパティで有効化）
 	if (!skipDependencyCheckAnalyze()) {
 		dependsOn 'dependencyCheckAnalyze'
