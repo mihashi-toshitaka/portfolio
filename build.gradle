@@ -140,8 +140,8 @@ tasks.named('editorconfigFormat') {
 }
 
 tasks.named('build') {
-	// build 時に rewrite + format を実行
-	dependsOn 'rewriteRun', 'editorconfigFormat', 'spotlessApply'
+	// build 時は保存時フォーマット（Spotless）を最終結果にする
+	dependsOn 'spotlessApply'
 }
 
 tasks.named('check') {
