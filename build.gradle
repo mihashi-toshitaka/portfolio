@@ -112,7 +112,7 @@ editorconfig {
 spotless {
 	java {
 		// Java ソースに Google Java Format を適用
-		googleJavaFormat('1.23.0')
+		googleJavaFormat('1.33.0')
 		target 'src/**/*.java'
 	}
 	format('misc') {
