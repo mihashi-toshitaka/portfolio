@@ -39,7 +39,7 @@
 - Gradle の `spotlessApply` / `spotlessCheck` を呼び出して整形・検証を行います。
 - 必要条件: `./gradlew` が利用可能であること、**Gradle for Java 拡張**が有効であること。
 - 保存時に走らせるための設定:
-  - `editor.codeActionsOnSave` に `source.fixAll.spotlessGradle` を設定
+  - `editor.codeActionsOnSave` に `source.fixAll.spotlessGradle` を `explicit` で設定
   - `editor.defaultFormatter` を Spotless Gradle に設定（Java / Gradle）
   - Java 標準フォーマッタは無効化（`java.format.enabled: false`）
 
@@ -50,7 +50,7 @@
   "spotlessGradle.diagnostics.enable": true,
   "spotlessGradle.format.enable": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.spotlessGradle": true
+    "source.fixAll.spotlessGradle": "explicit"
   },
   "[java]": {
     "editor.defaultFormatter": "richardwillis.vscode-spotless-gradle"
