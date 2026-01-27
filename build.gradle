@@ -124,9 +124,11 @@ spotless {
 }
 
 rewrite {
-	// 内蔵フォーマットレシピ + Spring Boot 3 ベストプラクティス
-	activeRecipe('org.openrewrite.java.format.AutoFormat')
-	activeRecipe('org.openrewrite.java.spring.boot3.SpringBoot3BestPracticesOnly')
+	// Spring Boot 3.5 へのアップグレードとコードクリーンアップ
+	activeRecipe('org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_5')
+	activeRecipe('org.openrewrite.java.search.FindDeprecatedUses')
+	activeRecipe('org.openrewrite.java.RemoveUnusedImports')
+	activeRecipe('org.openrewrite.java.cleanup.CodeCleanup')
 }
 
 tasks.named('spotlessApply') {

@@ -5,7 +5,7 @@
 ## フォーマット / 自動整形
 - **Spotless + google-java-format**: `spotlessApply` で Java と補助ファイルを整形します。
 - **EditorConfig**: `.editorconfig` に従ってインデントや改行を統一します。
-- **OpenRewrite**: `rewriteRun` で自動整形レシピ（`AutoFormat`）を実行します。
+- **OpenRewrite**: `rewriteRun` で Spring Boot 3.5 への更新や非推奨 API 検出などのレシピを実行します。
 
 > 実行順序は `rewriteRun` → `editorconfigFormat` → `spotlessApply` となるように `build` タスクへ組み込んでいます。
 

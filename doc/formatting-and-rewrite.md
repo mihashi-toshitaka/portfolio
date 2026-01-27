@@ -22,6 +22,11 @@
 ### OpenRewrite
 - 自動リファクタリングレシピを実行します。
 - **整形より先に実行**し、最終コードを Spotless / EditorConfig で整えます。
+- 適用レシピ:
+  - `UpgradeSpringBoot_3_5`（Spring Boot 3.5 へのアップグレード）
+  - `FindDeprecatedUses`（非推奨 API の使用箇所検出）
+  - `RemoveUnusedImports`（未使用 import の削除）
+  - `CodeCleanup`（一般的なコードクリーンアップ）
 
 ## VS Code セットアップ
 ### 拡張機能
@@ -136,8 +141,10 @@ editorconfig {
 }
 
 rewrite {
-  activeRecipe('org.openrewrite.java.format.AutoFormat')
-  activeRecipe('org.openrewrite.java.spring.boot3.SpringBoot3BestPracticesOnly')
+  activeRecipe('org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_5')
+  activeRecipe('org.openrewrite.java.search.FindDeprecatedUses')
+  activeRecipe('org.openrewrite.java.RemoveUnusedImports')
+  activeRecipe('org.openrewrite.java.cleanup.CodeCleanup')
 }
 
 // 実行順序: rewrite -> editorconfig -> spotless
