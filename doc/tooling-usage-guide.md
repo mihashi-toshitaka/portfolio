@@ -7,7 +7,7 @@
 ## 1. フォーマット / リライト（OpenRewrite + EditorConfig + Spotless）
 
 ### 目的
-1) OpenRewrite で自動リファクタリング
+1) OpenRewrite で自動リファクタリング（Spring Boot 3.5 への更新、非推奨 API 検出、未使用 import 削除、コードクリーンアップ）
 2) EditorConfig で空白・改行を統一
 3) Spotless（google-java-format）で最終整形
 
