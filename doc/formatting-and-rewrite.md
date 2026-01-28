@@ -144,7 +144,7 @@ rewrite {
   activeRecipe('org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_5')
   activeRecipe('org.openrewrite.java.search.FindDeprecatedUses')
   activeRecipe('org.openrewrite.java.RemoveUnusedImports')
-  activeRecipe('org.openrewrite.java.cleanup.CodeCleanup')
+  activeRecipe('org.openrewrite.staticanalysis.CodeCleanup')
 }
 
 // 実行順序: rewrite -> editorconfig -> spotless
