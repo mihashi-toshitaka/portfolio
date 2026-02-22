@@ -29,6 +29,9 @@ public class SecurityConfig {
                 // ヘルスチェックエンドポイントは認証不要
                 .requestMatchers("/actuator/health", "/actuator/health/**")
                 .permitAll()
+                // Azure認証エラーページは認証不要（無限ループ防止）
+                .requestMatchers("/azure**")
+                .permitAll()
                 // それ以外は認証が必要
                 .anyRequest()
                 .authenticated());
@@ -36,7 +39,10 @@ public class SecurityConfig {
       // 認証時の挙動（デフォルトログイン画面は無効）
       http.oauth2Login(
           oauth2 ->
-              oauth2.loginPage("/oauth2/authorization/azure").successHandler(customSuccessHandler));
+              oauth2
+                  .loginPage("/oauth2/authorization/azure")
+                  .failureUrl("/azure?error")
+                  .successHandler(customSuccessHandler));
     }
     return http.build();
   }
