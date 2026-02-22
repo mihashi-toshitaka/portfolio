@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/public/01")
 public class Api01Controller {
 
-    @GetMapping("")
-    public String login() {
-        return "Api01";
-    }
-
+  @GetMapping("")
+  public String login() {
+    return "Api01";
+  }
 }
