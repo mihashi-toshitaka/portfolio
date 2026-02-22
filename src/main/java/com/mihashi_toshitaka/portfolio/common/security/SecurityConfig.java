@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .requestMatchers("/actuator/health", "/actuator/health/**")
                 .permitAll()
                 // Azure認証エラーページは認証不要（無限ループ防止）
-                .requestMatchers("/azure**")
+                .requestMatchers("/azure")
                 .permitAll()
                 // それ以外は認証が必要
                 .anyRequest()
