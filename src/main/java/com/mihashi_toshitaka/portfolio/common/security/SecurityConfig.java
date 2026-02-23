@@ -15,7 +15,7 @@ public class SecurityConfig {
     "/html/privacy.html",
     "/actuator/health",
     "/actuator/health/**",
-    "/azure",       // 無限ループ防止
+    "/azure", // 無限ループ防止
     "/img/**",
     "/favicon.ico",
     "/menu",
@@ -38,12 +38,14 @@ public class SecurityConfig {
   private void configureAuthorization(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(
         auth ->
-            auth
-                .requestMatchers(PUBLIC_PATHS).permitAll()
+            auth.requestMatchers(PUBLIC_PATHS)
+                .permitAll()
                 // 認証デモページは認証必須
-                .requestMatchers("/secured/**").authenticated()
+                .requestMatchers("/secured/**")
+                .authenticated()
                 // ポートフォリオは公開サイトなので残りも認証不要
-                .anyRequest().permitAll());
+                .anyRequest()
+                .permitAll());
   }
 
   private void configureOAuth2Login(HttpSecurity http, CustomSuccessHandler customSuccessHandler)
