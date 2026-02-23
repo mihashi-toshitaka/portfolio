@@ -33,15 +33,15 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
       }
     }
 
-    // 優先順位2: 元のURLがある場合
+    // 優先順位2: 元のURLがある場合（エラーページへのリダイレクトは除外）
     if (savedRequest != null) {
       String targetUrl = savedRequest.getRedirectUrl();
       try {
         URI uri = new URI(targetUrl);
         String targetPath = uri.getPath();
         String contextPath = request.getContextPath() + (targetPath.endsWith("/") ? "/" : "");
-        // サブコンテキストパスがある場合はそちらに遷移
-        if (!Objects.equals(targetPath, contextPath)) {
+        // サブコンテキストパスがある場合かつエラーページでなければ遷移
+        if (!Objects.equals(targetPath, contextPath) && !targetPath.startsWith("/error")) {
           response.sendRedirect(targetUrl);
           return;
         }

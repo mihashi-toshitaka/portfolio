@@ -61,6 +61,8 @@ dependencies {
 
 	// サーバーサイド HTML テンプレート
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// Thymeleaf × Spring Security 連携（sec:authorize タグ使用）
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 	// テスト基盤
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
